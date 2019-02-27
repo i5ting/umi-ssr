@@ -15,7 +15,9 @@ const UserConfig = require(global_node_modules_path + '/umi-build-dev/lib/UserCo
 module.exports = function(cfg, pwd){
     if (!pwd) pwd = process.cwd();
 
-    process.env.UMI_DIR = global_node_modules_path.replace("node_modules", "");
+    process.env.UMI_DIR = global_node_modules_path.replace("umi/node_modules", "umi") ;
+    // console.log(process.env.UMI_DIR)
+    // return ""
 
     // 初始化service
     const service = new Service({
@@ -62,6 +64,7 @@ module.exports = function(cfg, pwd){
 
     webpackConfig = webpackMerge(webpackConfig, cfg);
     // debug(webpackConfig)
+    console.log(webpackConfig)
    
 
     // for node server-side render config

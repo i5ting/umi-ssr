@@ -22,7 +22,7 @@ const nodeExternals = require('webpack-node-externals')
 module.exports = {
     mode: "production",
     entry: {
-        // app: "./web/page/app/index.js"
+        app: "./src/pages/index.tsx"
     },
     target: "async-node",
     externals: nodeExternals({
