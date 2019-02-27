@@ -1,0 +1,16 @@
+{
+  "name": "umi-ssr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "get-global-node-modules-path": "^1.0.2",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
