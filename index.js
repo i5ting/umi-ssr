@@ -4,7 +4,6 @@ const global_node_modules_path = require('get-global-node-modules-path')('umi')
 const webpack = require(global_node_modules_path + '/webpack')
 const webpackMerge = require(global_node_modules_path + '/webpack-merge')
 
-const nodeExternals = require('webpack-node-externals')
 const path = require("path");
 const join = path.join;
 
@@ -13,7 +12,7 @@ const getFilesGenerator = require(global_node_modules_path + '/umi-build-dev/lib
 const Service = require(global_node_modules_path + '/umi-build-dev/lib/Service').default;
 const UserConfig = require(global_node_modules_path + '/umi-build-dev/lib/UserConfig').default;
 
-module.exports = function(pwd){
+module.exports = function(cfg, pwd){
     if (!pwd) pwd = process.cwd();
 
     process.env.UMI_DIR = global_node_modules_path.replace("node_modules", "");
@@ -58,23 +57,25 @@ module.exports = function(pwd){
     filesGenerator.generate();
 
     // 获取webpack配置信息
-    const webpackConfig = require('umi-build-dev/lib/getWebpackConfig').default(service);
+    let webpackConfig = require('umi-build-dev/lib/getWebpackConfig').default(service);
     
+
+    webpackConfig = webpackMerge(webpackConfig, cfg);
     // debug(webpackConfig)
    
 
     // for node server-side render config
-    const isDev = process.env.NODE_ENV === 'development'
-    webpackConfig.mode = process.env.NODE_ENV
-    webpackConfig.devtool = isDev ? 'eval-source-map' : ''
-    webpackConfig.target = 'node'
-    webpackConfig.externals = nodeExternals({
-        whilelist: /\.(css|less|sass|scss)$/
-    })
-    webpackConfig.output.libraryTarget ='commonjs2'
-    webpackConfig.plugins.push(new webpack.DefinePlugin({
-        __isBrowser__: false
-    }))
+    // const isDev = process.env.NODE_ENV === 'development'
+    // webpackConfig.mode = process.env.NODE_ENV
+    // webpackConfig.devtool = isDev ? 'eval-source-map' : ''
+    // webpackConfig.target = 'node'
+    // webpackConfig.externals = nodeExternals({
+    //     whilelist: /\.(css|less|sass|scss)$/
+    // })
+    // webpackConfig.output.libraryTarget ='commonjs2'
+    // webpackConfig.plugins.push(new webpack.DefinePlugin({
+    //     __isBrowser__: false
+    // }))
 
     const compiler = webpack(webpackConfig);
 

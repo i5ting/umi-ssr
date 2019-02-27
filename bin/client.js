@@ -1,5 +1,15 @@
-var merge = require('webpack-merge');
+#!/usr/bin/env node
 
 
-import { renderRoutes } from "react-router-config";
+var clientCfg = require("../config/webpack.client");
+
+const compiler = require('..')(clientCfg)
+
+// 测试webpack执行情况
+compiler.run((err, stats) => {/* ...处理结果 */
+    if (err) console.dir(err)
+    
+      console.dir("sucess")
+    })
+    
 
