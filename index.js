@@ -13,11 +13,10 @@ const getFilesGenerator = require(global_node_modules_path + '/umi-build-dev/lib
 const Service = require(global_node_modules_path + '/umi-build-dev/lib/Service').default;
 const UserConfig = require(global_node_modules_path + '/umi-build-dev/lib/UserConfig').default;
 
-module.exports = function(entry, pwd){
+module.exports = function(pwd){
     if (!pwd) pwd = process.cwd();
-    if (!entry) entry = {};
-    
-    process.env.UMI_DIR = pwd + "/node_modules/umi";
+
+    process.env.UMI_DIR = global_node_modules_path.replace("node_modules", "");
 
     // 初始化service
     const service = new Service({
@@ -62,9 +61,7 @@ module.exports = function(entry, pwd){
     const webpackConfig = require('umi-build-dev/lib/getWebpackConfig').default(service);
     
     // debug(webpackConfig)
-    for(var k in entry){
-        webpackConfig.entry[k] = entry[k]
-    }
+   
 
     // for node server-side render config
     const isDev = process.env.NODE_ENV === 'development'
