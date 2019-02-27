@@ -16,5 +16,9 @@
   "dependencies": {
     "get-global-node-modules-path": "^1.0.2",
     "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "koa": "^2.6.2",
+    "kwm": "^1.0.3"
   }
 }
